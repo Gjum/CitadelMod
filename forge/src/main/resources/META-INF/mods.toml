@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[32,)"
+#issueTrackerURL = ""
+license = "GPL"
+
+[[mods]]
+modId = "citadelmod"
+version = "${version}"
+displayName = "Citadel Mod"
+authors = "Gjum"
+description = '''
+Citadel Mod
+'''
+#logoFile = ""
+
+[[dependencies.citadelmod]]
+modId = "forge"
+mandatory = true
+versionRange = "[32,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.citadelmod]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.16.1,)"
+ordering = "NONE"
+side = "CLIENT"

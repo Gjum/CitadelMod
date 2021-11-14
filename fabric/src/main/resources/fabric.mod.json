@@ -1,0 +1,26 @@
+{
+	"schemaVersion": 1,
+	"id": "citadelmod",
+	"version": "${version}",
+	"name": "Citadel Mod",
+	"description": "Citadel Mod",
+	"authors": [
+		"Gjum"
+	],
+	"license": "Copyright",
+	"icon": "assets/citadelmod/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"gjum.minecraft.civ.citadelmod.fabric.FabricCitadelMod"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.7.4",
+		"fabric": "*",
+		"minecraft": "1.16.x"
+	},
+	"mixins": [
+		"mixin.citadelmod.json"
+	]
+}
