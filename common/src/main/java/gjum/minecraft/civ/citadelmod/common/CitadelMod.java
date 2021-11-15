@@ -1,6 +1,8 @@
 package gjum.minecraft.civ.citadelmod.common;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.core.BlockPos;
@@ -9,9 +11,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 
-public class CitadelMod {
+public abstract class CitadelMod {
 	private static CitadelMod INSTANCE;
+
+	private static final KeyMapping toggleKey = new KeyMapping(
+			"Toggle reinforcement overlay",
+			InputConstants.Type.KEYSYM,
+			GLFW.GLFW_KEY_C,
+			"Citadel"
+	);
+
+	public boolean reinforcementOverlayVisible = true;
 
 	@Nullable
 	private CitadelSqliteDb db = null;
@@ -26,6 +38,15 @@ public class CitadelMod {
 	}
 
 	public void init() {
+		registerKeyBinding(toggleKey);
+	}
+
+	public abstract void registerKeyBinding(KeyMapping mapping);
+
+	public void handleTick() {
+		while (toggleKey.consumeClick()) {
+			reinforcementOverlayVisible = !reinforcementOverlayVisible;
+		}
 	}
 
 	public void handleConnectedToServer() {
@@ -68,6 +89,7 @@ public class CitadelMod {
 
 	public void handleRenderBlockOverlay(PoseStack matrices, float partialTicks) {
 		if (db == null) return;
+		if (!reinforcementOverlayVisible) return;
 		OverlayRenderer.renderOverlay(matrices, partialTicks);
 	}
 
