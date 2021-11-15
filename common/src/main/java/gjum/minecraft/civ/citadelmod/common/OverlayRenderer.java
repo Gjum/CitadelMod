@@ -120,31 +120,44 @@ public class OverlayRenderer {
 		else
 			renderCornerTriangles(cornerSize, 1, 1, 0, cornerOpacity);
 
+		RenderSystem.enableTexture();
+
 		final String group = info.getGroup();
 		if (group != null && !group.isEmpty()) {
-			RenderSystem.enableTexture();
-
-			final Matrix4f I = Transformation.identity().getMatrix();
-			final boolean shadow = false;
-			final boolean seeThrough = false;
-
 			final int color = 0xffffff; // TODO based on group; good/bad/etc
-			final int backdropColor = 0x40_000000;
-
-			final int w = mc.font.width(group) + 2; // +2 for border
-			float scale = 1f / w; // 1 block width covered by the text width
-			// leave space for corners and health
-			if (scale * mc.font.lineHeight > .3f) scale = .3f / mc.font.lineHeight;
-			RenderSystem.scalef(-scale, -scale, scale);
-
-			MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
-
-			mc.font.drawInBatch(group, 1f - w / 2f, mc.font.lineHeight / -2f,
-					color, shadow, I, bufferSource, seeThrough, backdropColor, 0xf0_00_f0);
-
-			bufferSource.endBatch();
+			drawTextCentered(group, color, 1, .3f, .5f);
 		}
 
+		String healthText = String.format("%d/%d", info.getHealth(), info.getHealthMax());
+
+		int healthColor = 0xaaaaaa;
+		if (info.getHealth() < info.getHealthMax()) healthColor = 0xffffff;
+		if (info.getHealth() < info.getHealthMax() / 2) healthColor = 0xffff00;
+		if (info.getHealth() < info.getHealthMax() / 5) healthColor = 0xff0000;
+
+		RenderSystem.translatef(0, -.5f + cornerSize / 2, 0);
+		drawTextCentered(healthText, healthColor, 1 - cornerSize, .2f, 1);
+
+		RenderSystem.popMatrix();
+	}
+
+	static void drawTextCentered(String text, int color, float maxWidth, float maxHeight, float offset) {
+		final Matrix4f I = Transformation.identity().getMatrix();
+		final boolean shadow = false;
+		final boolean seeThrough = false;
+		final int backdropColor = 0x40_000000;
+		final int borderSize = 1;
+
+		final int w = mc.font.width(text) + borderSize + borderSize;
+		float scale = maxWidth / w;
+		if (scale * mc.font.lineHeight > maxHeight) scale = maxHeight / mc.font.lineHeight;
+		RenderSystem.pushMatrix();
+		RenderSystem.scalef(-scale, -scale, scale);
+
+		MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+		mc.font.drawInBatch(text, borderSize - w / 2f, -offset * mc.font.lineHeight,
+				color, shadow, I, bufferSource, seeThrough, backdropColor, 0xf0_00_f0);
+		bufferSource.endBatch();
 		RenderSystem.popMatrix();
 	}
 
