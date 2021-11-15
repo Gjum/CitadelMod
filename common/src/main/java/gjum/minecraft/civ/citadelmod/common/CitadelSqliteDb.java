@@ -59,6 +59,7 @@ public class CitadelSqliteDb {
 				", group TEXT" +
 				", reinforcement TEXT" +
 				", health INTEGER" +
+				", healthMax INTEGER" +
 				", mature_ts BIGINT" +
 				", last_checked_ts BIGINT" +
 				" PRIMARY KEY (" + pkeyBlocks + "));";
@@ -83,11 +84,12 @@ public class CitadelSqliteDb {
 				final String group = rs.getString("group");
 				final String reinforcement = rs.getString("reinforcement");
 				final int health = rs.getInt("health");
+				final int healthMax = rs.getInt("healthMax");
 				final long mature_ts = rs.getLong("mature_ts");
 				final long last_checked_ts = rs.getLong("last_checked_ts");
 
 				final BlockInfo info = new BlockInfo(x, y, z);
-				info.setFromDb(group, reinforcement, health, mature_ts, last_checked_ts);
+				info.setFromDb(group, reinforcement, health, healthMax, mature_ts, last_checked_ts);
 
 				blockInfos.add(info);
 
@@ -104,12 +106,13 @@ public class CitadelSqliteDb {
 		blockInfoByPos.put(info.getBlockPos(), info);
 
 		if (conn == null) return;
-		String sql = "INSERT INTO block_info (x,y,z,world,group,reinforcement,health,mature_ts,last_checked_ts)" +
-				" VALUES (?,?,?,?,?,?,?,?,?)" +
+		String sql = "INSERT INTO block_info (x,y,z,world,group,reinforcement,health,healthMax,mature_ts,last_checked_ts)" +
+				" VALUES (?,?,?,?,?,?,?,?,?,?)" +
 				"ON CONFLICT (" + pkeyBlocks + ") DO UPDATE SET " +
 				"group = excluded.group," +
 				"reinforcement = excluded.reinforcement," +
 				"health = excluded.health," +
+				"healthMax = excluded.healthMax," +
 				"mature_ts = excluded.mature_ts," +
 				"last_checked_ts = excluded.last_checked_ts";
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -121,6 +124,7 @@ public class CitadelSqliteDb {
 			pstmt.setString(++i, info.getGroup());
 			pstmt.setString(++i, info.getReinforcement());
 			pstmt.setInt(++i, info.getHealth());
+			pstmt.setInt(++i, info.getHealthMax());
 			pstmt.setLong(++i, info.getMatureTs());
 			pstmt.setLong(++i, info.getLastCheckedTs());
 

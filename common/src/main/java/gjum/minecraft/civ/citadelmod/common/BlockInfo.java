@@ -8,9 +8,15 @@ public class BlockInfo {
 	private final int y;
 	private final int z;
 
+	/**
+	 * null means unknown; empty string means known unreinforced
+	 */
 	@Nullable
 	private String group;
 
+	/**
+	 * null means unknown; empty string means known unreinforced
+	 */
 	@Nullable
 	private String reinforcement;
 
@@ -18,6 +24,11 @@ public class BlockInfo {
 	 * number of breaks until destroyed, ignoring decay and maturation
 	 */
 	private int health;
+
+	/**
+	 * reinforcement type's max number of breaks until destroyed
+	 */
+	private int healthMax;
 
 	/**
 	 * milliseconds since UNIX epoch
@@ -35,20 +46,22 @@ public class BlockInfo {
 		this.z = z;
 	}
 
-	public BlockInfo setFromDb(String group, String reinforcement, int health, long matureTs, long lastCheckedTs) {
-		this.health = health;
+	public BlockInfo setFromDb(String group, String reinforcement, int health, int healthMax, long matureTs, long lastCheckedTs) {
 		this.group = group;
 		this.reinforcement = reinforcement;
+		this.health = health;
+		this.healthMax = healthMax;
 		this.matureTs = matureTs;
 		this.lastCheckedTs = lastCheckedTs;
 		return this;
 	}
 
-	public BlockInfo setFromCti(String group, String reinforcement, int health, long matureTs) {
+	public BlockInfo setFromCti(String group, String reinforcement, int health, int healthMax, long matureTs) {
 		lastCheckedTs = System.currentTimeMillis();
-		this.health = health;
 		this.group = group;
 		this.reinforcement = reinforcement;
+		this.health = health;
+		this.healthMax = healthMax;
 		this.matureTs = matureTs;
 		return this;
 	}
@@ -58,6 +71,7 @@ public class BlockInfo {
 		group = "";
 		reinforcement = "";
 		health = 0;
+		healthMax = 0;
 		matureTs = 0;
 		return this;
 	}
@@ -118,6 +132,19 @@ public class BlockInfo {
 	public BlockInfo setHealth(int health) {
 		lastCheckedTs = System.currentTimeMillis();
 		this.health = health;
+		return this;
+	}
+
+	public int getHealthMax() {
+		return healthMax;
+	}
+
+	/**
+	 * reinforcement type's max number of breaks until destroyed
+	 */
+	public BlockInfo setHealthMax(int healthMax) {
+		lastCheckedTs = System.currentTimeMillis();
+		this.healthMax = healthMax;
 		return this;
 	}
 

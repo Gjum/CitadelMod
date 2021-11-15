@@ -71,6 +71,7 @@ public class ChatParser {
 		m = reinforcementInfoPattern.matcher(text);
 		if (m.matches()) {
 			int health = parseInt(m.group("healthAbs"));
+			int healthMax = parseInt(m.group("healthMax"));
 			String reinf = m.group("reinforcement");
 			String group = m.group("group");
 
@@ -80,7 +81,7 @@ public class ChatParser {
 							parseLongOrZero(m.group("matureSec"), 0));
 			long matureTs = System.currentTimeMillis() + matureMs;
 
-			return info.setFromCti(group, reinf, health, matureTs);
+			return info.setFromCti(group, reinf, health, healthMax, matureTs);
 		}
 
 		m = unreinforcedInfoPattern.matcher(text);
@@ -108,6 +109,7 @@ public class ChatParser {
 		m = alreadyRepairedPattern.matcher(text);
 		if (m.matches()) {
 			info.setHealth(parseInt(m.group("healthAbs")));
+			info.setHealthMax(parseInt(m.group("healthMax")));
 			info.setReinforcement(m.group("reinforcement"));
 			info.setGroup(m.group("group"));
 			return info;
