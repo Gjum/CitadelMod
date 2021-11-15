@@ -117,6 +117,10 @@ public class OverlayRenderer {
 			renderCornerTriangles(cornerSize, 1, 1, 1, cornerOpacity);
 		else if ("Diamond".equals(info.getReinforcement()))
 			renderCornerTriangles(cornerSize, 0, .5f, 1, cornerOpacity);
+		else if ("Paper".equals(info.getReinforcement()))
+			renderCornerTriangles(cornerSize, 0, .7f, 0, cornerOpacity);
+		else if ("Bedrock".equals(info.getReinforcement()))
+			renderCornerTriangles(cornerSize, 0, 0, 0, cornerOpacity);
 		else
 			renderCornerTriangles(cornerSize, 1, 1, 0, cornerOpacity);
 
