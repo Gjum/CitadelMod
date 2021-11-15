@@ -98,4 +98,8 @@ public abstract class CitadelMod {
 		if (db == null) return null;
 		return db.getBlockInfo(new BlockPos(x, y, z));
 	}
+
+	public long getConfigMaxAge() {
+		return 1000L * 60 * 60; // an hour
+	}
 }

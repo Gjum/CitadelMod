@@ -42,11 +42,15 @@ public class OverlayRenderer {
 
 		final BlockPos playerPos = mc.player.blockPosition();
 
+		final long maxAge = System.currentTimeMillis() - getMod().getConfigMaxAge();
+
 		for (int x = -range; x <= range; ++x) {
 			for (int y = -range; y <= range; ++y) {
 				for (int z = -range; z <= range; ++z) {
 					final BlockInfo info = getMod().getBlockInfo(x + playerPos.getX(), y + playerPos.getY(), z + playerPos.getZ());
 					if (info == null) continue;
+
+					if (info.getLastCheckedTs() < maxAge) continue;
 
 					final BlockPos p = info.getBlockPos();
 
