@@ -126,6 +126,9 @@ public class OverlayRenderer {
 		if (group != null && !group.isEmpty()) {
 			final int color = 0xffffff; // TODO based on group; good/bad/etc
 			drawTextCentered(group, color, 1, .3f, .5f);
+		} else if (info.getReinforcement() != null && !info.getReinforcement().isEmpty()) {
+			final int color = 0xff0000;
+			drawTextCentered("(hostile)", color, 1, .3f, .5f);
 		}
 
 		String healthText = String.format("%d/%d", info.getHealth(), info.getHealthMax());
