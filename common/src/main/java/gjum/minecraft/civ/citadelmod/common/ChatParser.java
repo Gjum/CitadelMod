@@ -16,7 +16,7 @@ public class ChatParser {
 					" \\((?<healthAbs>[-0-9.]+)" +
 					"/(?<healthMax>[-0-9.]+)\\) health" +
 					" with (?<reinforcement>\\S+)" +
-					" on (?<group>\\S+)" +
+					"(?: on (?<group>\\S+))?" +
 					"(?: " +
 					"(?<maturePct>[-0-9.]+)% mature" +
 					"(?: (?<matureHr>[0-9]+) h)?" +
