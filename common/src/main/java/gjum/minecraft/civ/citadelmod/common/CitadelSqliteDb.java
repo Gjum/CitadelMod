@@ -56,10 +56,10 @@ public class CitadelSqliteDb {
 				", y INT" +
 				", z INT" +
 				", world TEXT" +
-				", group TEXT" +
+				", group_name TEXT" +
 				", reinforcement TEXT" +
 				", health INTEGER" +
-				", healthMax INTEGER" +
+				", health_max INTEGER" +
 				", mature_ts BIGINT" +
 				", last_checked_ts BIGINT" +
 				" PRIMARY KEY (" + pkeyBlocks + "));";
@@ -81,15 +81,15 @@ public class CitadelSqliteDb {
 				final int y = rs.getInt("y");
 				final int z = rs.getInt("z");
 				// final String world = rs.getString("world"); // TODO world
-				final String group = rs.getString("group");
+				final String group_name = rs.getString("group_name");
 				final String reinforcement = rs.getString("reinforcement");
 				final int health = rs.getInt("health");
-				final int healthMax = rs.getInt("healthMax");
+				final int health_max = rs.getInt("health_max");
 				final long mature_ts = rs.getLong("mature_ts");
 				final long last_checked_ts = rs.getLong("last_checked_ts");
 
 				final BlockInfo info = new BlockInfo(x, y, z);
-				info.setFromDb(group, reinforcement, health, healthMax, mature_ts, last_checked_ts);
+				info.setFromDb(group_name, reinforcement, health, health_max, mature_ts, last_checked_ts);
 
 				blockInfos.add(info);
 
@@ -106,13 +106,13 @@ public class CitadelSqliteDb {
 		blockInfoByPos.put(info.getBlockPos(), info);
 
 		if (conn == null) return;
-		String sql = "INSERT INTO block_info (x,y,z,world,group,reinforcement,health,healthMax,mature_ts,last_checked_ts)" +
+		String sql = "INSERT INTO block_info (x,y,z,world,group_name,reinforcement,health,health_max,mature_ts,last_checked_ts)" +
 				" VALUES (?,?,?,?,?,?,?,?,?,?)" +
 				"ON CONFLICT (" + pkeyBlocks + ") DO UPDATE SET " +
-				"group = excluded.group," +
+				"group_name = excluded.group_name," +
 				"reinforcement = excluded.reinforcement," +
 				"health = excluded.health," +
-				"healthMax = excluded.healthMax," +
+				"health_max = excluded.health_max," +
 				"mature_ts = excluded.mature_ts," +
 				"last_checked_ts = excluded.last_checked_ts";
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
