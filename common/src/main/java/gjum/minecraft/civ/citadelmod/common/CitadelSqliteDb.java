@@ -22,6 +22,7 @@ public class CitadelSqliteDb {
 			Class.forName("org.sqlite.JDBC"); // load driver
 			conn = DriverManager.getConnection("jdbc:sqlite:CitadelMod/" + server + "/block_info.sqlite");
 			createTableBlockInfo();
+			selectAllBlockInfos();
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (conn != null) {
