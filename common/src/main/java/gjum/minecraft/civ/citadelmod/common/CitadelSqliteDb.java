@@ -141,7 +141,8 @@ public class CitadelSqliteDb {
 
 	synchronized
 	public void deleteBlockInfo(BlockPos pos, String world) {
-		blockInfoByPos.remove(pos);
+		BlockInfo old = blockInfoByPos.remove(pos);
+		if (old == null) return;
 
 		if (conn == null) return;
 		String sql = "DELETE FROM block_info WHERE x = ? AND y = ? AND z = ? AND world = ?";
@@ -152,7 +153,7 @@ public class CitadelSqliteDb {
 			pstmt.setInt(++i, pos.getZ());
 			pstmt.setString(++i, world);
 
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
