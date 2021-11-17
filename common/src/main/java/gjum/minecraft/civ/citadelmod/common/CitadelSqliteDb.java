@@ -17,8 +17,8 @@ public class CitadelSqliteDb {
 
 	public CitadelSqliteDb(String server) {
 		this.server = server;
-		new File("CitadelMod/" + server).mkdirs();
 		try {
+			new File("CitadelMod/" + server).mkdirs();
 			Class.forName("org.sqlite.JDBC"); // load driver
 			conn = DriverManager.getConnection("jdbc:sqlite:CitadelMod/" + server + "/block_info.sqlite");
 			createTableBlockInfo();
@@ -62,7 +62,7 @@ public class CitadelSqliteDb {
 				", health_max INTEGER" +
 				", mature_ts BIGINT" +
 				", last_checked_ts BIGINT" +
-				" PRIMARY KEY (" + pkeyBlocks + "));";
+				", PRIMARY KEY (" + pkeyBlocks + "));";
 		try (Statement stmt = conn.createStatement()) {
 			stmt.execute(sql);
 		} catch (SQLException e) {
