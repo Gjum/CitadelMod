@@ -19,7 +19,7 @@ public class FabricCitadelMod extends CitadelMod implements ClientModInitializer
 				e.printStackTrace();
 			}
 		});
-		WorldRenderEvents.BEFORE_ENTITIES.register(((context) -> {
+		WorldRenderEvents.AFTER_TRANSLUCENT.register(((context) -> {
 			try {
 				handleRenderBlockOverlay(context.matrixStack(), context.tickDelta());
 			} catch (Exception e) {

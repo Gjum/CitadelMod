@@ -104,7 +104,6 @@ public class OverlayRenderer {
 		RenderSystem.disableTexture();
 
 		RenderSystem.enableDepthTest();
-		RenderSystem.depthMask(false); // otherwise water/chests are messed up
 
 		// need blend for alpha
 		RenderSystem.enableBlend();
@@ -149,7 +148,6 @@ public class OverlayRenderer {
 		RenderSystem.translatef(0, -.5f + cornerSize / 2, 0);
 		drawTextCentered(healthText, healthColor, 1 - cornerSize, .2f, 1);
 
-		RenderSystem.depthMask(true);
 		RenderSystem.popMatrix();
 	}
 
