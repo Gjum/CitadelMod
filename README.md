@@ -2,9 +2,9 @@
 
 Display reinforcement info on the faces of blocks.
 
-A Fabric/Forge mod for [CivClassic](https://github.com/CivClassic) and other Civ servers.
+[Join the Discord for announcements, discussion, and support.](https://discord.gg/axDv6FpbSQ)
 
-Inspired by Shadowtrot's [reinforcement overlay](https://github.com/caucow/RandomCodeAndProjects/blob/main/CmdReinforcement.java#L178).
+A Fabric/Forge mod for [CivClassic](https://github.com/CivClassic) and other Civ servers.
 
 Reinforcement types are indicated by the corner colors:
 
@@ -15,3 +15,5 @@ Reinforcement types are indicated by the corner colors:
 - Bedrock: black
 
 Stone/Iron/Diamond colors are the same sa the particles when reinforcing.
+
+Inspired by Shadowtrot's [reinforcement overlay](https://github.com/caucow/RandomCodeAndProjects/blob/main/CmdReinforcement.java#L178).
