@@ -92,6 +92,7 @@ public class OverlayRenderer {
 
 		RenderSystem.popMatrix();
 
+		RenderSystem.enableTexture();
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
