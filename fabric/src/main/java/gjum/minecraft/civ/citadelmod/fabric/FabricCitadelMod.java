@@ -11,7 +11,7 @@ import net.minecraft.client.KeyMapping;
 public class FabricCitadelMod extends CitadelMod implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		ClientLifecycleEvents.CLIENT_STARTED.register(e -> init());
+		init();
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			try {
 				handleTick();
