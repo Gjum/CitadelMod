@@ -2,6 +2,8 @@
 
 Display reinforcement info on the faces of blocks.
 
+## [Download](https://github.com/Gjum/CitadelMod/releases)
+
 [Join the Discord for announcements, discussion, and support.](https://discord.gg/axDv6FpbSQ)
 
 A Fabric/Forge mod for [CivClassic](https://github.com/CivClassic) and other Civ servers.
